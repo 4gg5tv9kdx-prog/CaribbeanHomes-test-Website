@@ -302,11 +302,10 @@
 
       <!-- Desktop nav -->
       <div style="display:flex;align-items:center;gap:2.5rem;" class="hidden md:flex">
-        <a href="#listings" class="nav-link">Listings</a>
+        <a href="listings.html" class="nav-link">Listings</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#testimonials" class="nav-link">Testimonials</a>
         <a href="#contact" class="nav-link">Contact</a>
-        <a href="#listings" class="btn-gold" style="padding:0.6rem 1.4rem;font-size:0.72rem;">Explore Listings</a>
       </div>
 
       <!-- Mobile hamburger -->
@@ -323,7 +322,6 @@
       <a href="#about" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">About</a>
       <a href="#testimonials" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">Testimonials</a>
       <a href="#contact" class="nav-link" style="padding:0.75rem 0;display:block;">Contact</a>
-      <a href="#listings" class="btn-gold" style="margin-top:1rem;text-align:center;display:block;">Explore Listings</a>
     </div>
   </nav>
 
@@ -355,7 +353,6 @@
           From sun-drenched beachfront villas to lush hilltop estates — we connect you with the finest properties across the Caribbean islands.
         </p>
         <div class="anim-fadeup delay-400" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
-          <a href="#listings" class="btn-gold">Explore Listings</a>
           <a href="#about" class="btn-outline">Learn More</a>
         </div>
 
@@ -394,44 +391,44 @@
         <!-- Location -->
         <div class="search-field" style="padding:1.25rem 1.5rem;flex:1;min-width:180px;">
           <span class="search-label">Location</span>
-          <select class="search-select">
+          <select id="search-island" class="search-select">
             <option value="">All Islands</option>
-            <option>Barbados</option>
-            <option>Trinidad & Tobago</option>
-            <option>Jamaica</option>
-            <option>St. Lucia</option>
-            <option>Antigua</option>
-            <option>The Bahamas</option>
-            <option>Cayman Islands</option>
+            <option value="Barbados">Barbados</option>
+            <option value="Trinidad &amp; Tobago">Trinidad &amp; Tobago</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="St. Lucia">St. Lucia</option>
+            <option value="Antigua">Antigua</option>
+            <option value="The Bahamas">The Bahamas</option>
+            <option value="Cayman Islands">Cayman Islands</option>
           </select>
         </div>
         <!-- Property type -->
         <div class="search-field" style="padding:1.25rem 1.5rem;flex:1;min-width:180px;border-left:1px solid rgba(28,14,6,0.08);">
           <span class="search-label">Property Type</span>
-          <select class="search-select">
+          <select id="search-type" class="search-select">
             <option value="">All Types</option>
-            <option>Villa</option>
-            <option>Beachfront</option>
-            <option>Condo</option>
-            <option>Estate</option>
-            <option>Land</option>
+            <option value="Villa">Villa</option>
+            <option value="Beachfront">Beachfront</option>
+            <option value="Condo">Condo</option>
+            <option value="Estate">Estate</option>
+            <option value="Land">Land</option>
           </select>
         </div>
         <!-- Price range -->
         <div class="search-field" style="padding:1.25rem 1.5rem;flex:1;min-width:180px;border-left:1px solid rgba(28,14,6,0.08);">
           <span class="search-label">Price Range</span>
-          <select class="search-select">
+          <select id="search-price" class="search-select">
             <option value="">Any Price</option>
-            <option>Under $250K</option>
-            <option>$250K – $500K</option>
-            <option>$500K – $1M</option>
-            <option>$1M – $3M</option>
-            <option>$3M+</option>
+            <option value="250000">Under $250K</option>
+            <option value="500000">$250K – $500K</option>
+            <option value="1000000">$500K – $1M</option>
+            <option value="3000000">$1M – $3M</option>
+            <option value="">$3M+</option>
           </select>
         </div>
         <!-- Search button -->
         <div style="padding:1rem;">
-          <button class="btn-gold" style="height:100%;white-space:nowrap;display:flex;align-items:center;gap:0.5rem;">
+          <button class="btn-gold" style="height:100%;white-space:nowrap;display:flex;align-items:center;gap:0.5rem;" onclick="(function(){var island=document.getElementById('search-island').value;var type=document.getElementById('search-type').value;var price=document.getElementById('search-price').value;var p=new URLSearchParams();if(island)p.set('island',island);if(type)p.set('type',type);if(price)p.set('price',price);var qs=p.toString();window.location.href='listings.html'+(qs?'?'+qs:'');})()">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             Search
           </button>
@@ -451,37 +448,38 @@
           <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:0.6rem;">Hand-Selected</p>
           <h2 style="font-family:'Roboto Mono',monospace;font-size:clamp(1.8rem,4vw,2.75rem);font-weight:700;letter-spacing:-0.03em;color:#1C0E06;line-height:1.1;">Featured Listings</h2>
         </div>
-        <a href="#" style="font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#C8952A;text-decoration:none;border-bottom:1px solid rgba(200,149,42,0.4);padding-bottom:2px;transition:border-color 0.2s ease;white-space:nowrap;" onmouseover="this.style.borderColor='#C8952A'" onmouseout="this.style.borderColor='rgba(200,149,42,0.4)'">View All Properties →</a>
+        <a href="listings.html" style="font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#C8952A;text-decoration:none;border-bottom:1px solid rgba(200,149,42,0.4);padding-bottom:2px;transition:border-color 0.2s ease;white-space:nowrap;" onmouseover="this.style.borderColor='#C8952A'" onmouseout="this.style.borderColor='rgba(200,149,42,0.4)'">View All Properties →</a>
       </div>
 
       <!-- Cards grid -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.75rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.75rem;">
 
         <!-- Card 1 -->
-        <div class="property-card reveal">
+        <div class="property-card reveal" style="cursor:pointer;" onclick="window.location='property-beachfront-villa.html'">
           <div class="img-wrap">
-            <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80" alt="Beachfront Villa, Barbados" />
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=440&fit=crop" alt="Beachfront Villa, Holetown, Barbados" />
             <div class="overlay"></div>
-            <span class="price-badge">$1,250,000</span>
+            <span style="position:absolute;top:12px;left:16px;font-family:'Roboto Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#1C0E06;color:#C8952A;border:1px solid #C8952A;padding:3px 8px;border-radius:2px;">New Listing</span>
+            <span class="price-badge">$2,850,000</span>
           </div>
           <div style="padding:1.25rem 1.25rem 1.5rem;">
             <h3 style="font-family:'Roboto Mono',monospace;font-weight:700;font-size:1rem;color:#1C0E06;margin-bottom:0.3rem;letter-spacing:-0.01em;">Beachfront Villa</h3>
             <p style="font-family:'Montserrat',sans-serif;font-size:0.8rem;color:rgba(28,14,6,0.5);margin-bottom:1.1rem;display:flex;align-items:center;gap:0.35rem;">
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Bridgetown, Barbados
+              Holetown, Barbados
             </p>
             <div style="display:flex;gap:1.25rem;padding-top:1rem;border-top:1px solid rgba(28,14,6,0.08);">
               <span style="display:flex;align-items:center;gap:0.4rem;font-family:'Montserrat',sans-serif;font-size:0.78rem;color:rgba(28,14,6,0.65);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                4 Bed
+                5 Bed
               </span>
               <span style="display:flex;align-items:center;gap:0.4rem;font-family:'Montserrat',sans-serif;font-size:0.78rem;color:rgba(28,14,6,0.65);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H3v6a2 2 0 002 2h14a2 2 0 002-2v-6h-2"/><path d="M5 12V5a2 2 0 012-2h10a2 2 0 012 2v7"/><line x1="9" y1="7" x2="9" y2="7.01"/><line x1="15" y1="7" x2="15" y2="7.01"/></svg>
-                3 Bath
+                4 Bath
               </span>
               <span style="display:flex;align-items:center;gap:0.4rem;font-family:'Montserrat',sans-serif;font-size:0.78rem;color:rgba(28,14,6,0.65);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-                3,200 sqft
+                4,200 sqft
               </span>
             </div>
           </div>
@@ -563,7 +561,7 @@
       </div>
 
       <!-- 3-column value props -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
 
         <!-- Local Expertise -->
         <div class="reveal" style="padding:2rem;border:1px solid rgba(28,14,6,0.1);border-radius:2px;transition:border-color 0.25s ease;" onmouseover="this.style.borderColor='rgba(200,149,42,0.3)'" onmouseout="this.style.borderColor='rgba(28,14,6,0.1)'">
@@ -606,7 +604,7 @@
         <h2 style="font-family:'Roboto Mono',monospace;font-size:clamp(1.8rem,4vw,2.75rem);font-weight:700;letter-spacing:-0.03em;color:#1C0E06;line-height:1.1;">What Our Clients Say</h2>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.75rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.75rem;">
 
         <!-- T1 -->
         <div class="testimonial-card reveal">
@@ -761,7 +759,7 @@
 
         <!-- Brand col -->
         <div>
-          <img src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:40px;width:auto;margin-bottom:1.25rem;" />
+          <img src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:179px;width:auto;margin-bottom:1.25rem;" />
           <p style="font-family:'Montserrat',sans-serif;font-size:0.825rem;font-weight:300;line-height:1.75;color:rgba(240,230,204,0.45);max-width:260px;">Premier real estate services across the Caribbean — connecting discerning buyers with extraordinary island properties since 2008.</p>
           <!-- Socials -->
           <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
