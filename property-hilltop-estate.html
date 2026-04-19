@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hilltop Estate — Rodney Bay, St. Lucia | Caribbean Homes</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            espresso: '#1C0E06',
+            cream:    '#F0E6CC',
+            walnut:   '#7B4A28',
+            gold:     '#C8952A',
+            caramel:  '#C4874A',
+            charcoal: '#2D2020',
+          },
+          fontFamily: {
+            mono:  ['"Roboto Mono"', 'monospace'],
+            sans:  ['Montserrat', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #F0E6CC;
+      color: #1C0E06;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .anim-fadeup  { animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both; }
+    .anim-fadein  { animation: fadeIn 0.7s ease both; }
+    .delay-100 { animation-delay: 0.10s; }
+    .delay-200 { animation-delay: 0.20s; }
+    .delay-300 { animation-delay: 0.35s; }
+    .delay-400 { animation-delay: 0.50s; }
+
+    .nav-link {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C8952A;
+      opacity: 0.72;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link:hover { opacity: 1; color: #C8952A; }
+    .nav-link.active {
+      opacity: 1;
+      color: #C8952A;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 5px;
+      text-decoration-color: #C8952A;
+      text-shadow: 0 0 10px rgba(200,149,42,0.55), 0 0 20px rgba(200,149,42,0.25);
+    }
+
+    .btn-gold {
+      background: #C8952A;
+      color: #1C0E06;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid #C8952A;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-gold:hover {
+      background: #C4874A;
+      border-color: #C4874A;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(200,149,42,0.35);
+    }
+    .btn-gold:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent;
+      color: #1C0E06;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid rgba(28,14,6,0.35);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      border-color: #1C0E06;
+      background: rgba(28,14,6,0.04);
+      transform: translateY(-1px);
+    }
+
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    .gallery-hero-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: 280px 280px;
+      gap: 4px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .gallery-hero-grid .main-img { grid-row: 1 / 3; }
+    .gallery-img {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .gallery-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), filter 0.3s ease;
+      filter: brightness(0.9);
+    }
+    .gallery-img:hover img { transform: scale(1.04); filter: brightness(1); }
+    .gallery-img .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28,14,6,0);
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-img:hover .photo-overlay { background: rgba(28,14,6,0.18); }
+    .gallery-img .photo-overlay svg { opacity: 0; transform: scale(0.8); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .gallery-img:hover .photo-overlay svg { opacity: 1; transform: scale(1); }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #fff;
+      border: 1px solid rgba(28,14,6,0.09);
+      border-radius: 2px;
+      padding: 0.65rem 1rem;
+    }
+    .stat-pill .stat-val { font-family: 'Roboto Mono', monospace; font-size: 0.9rem; font-weight: 700; color: #1C0E06; }
+    .stat-pill .stat-lbl { font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(28,14,6,0.45); }
+
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(28,14,6,0.65);
+      background: rgba(28,14,6,0.04);
+      border: 1px solid rgba(28,14,6,0.08);
+      border-radius: 2px;
+      padding: 0.4rem 0.75rem;
+    }
+
+    .section-heading {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #C8952A;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-heading::before { content: ''; display: inline-block; width: 24px; height: 2px; background: #C8952A; flex-shrink: 0; }
+    .section-title { font-family: 'Roboto Mono', monospace; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; color: #1C0E06; margin-bottom: 1rem; }
+
+    .detail-card {
+      background: #fff;
+      border: 1px solid rgba(28,14,6,0.08);
+      border-top: 3px solid #C8952A;
+      border-radius: 2px;
+      padding: 1.75rem;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(28,14,6,0.06);
+      font-size: 0.82rem;
+    }
+    .details-row:last-child { border-bottom: none; }
+    .details-row .d-label { font-family: 'Montserrat', sans-serif; font-weight: 500; color: rgba(28,14,6,0.5); }
+    .details-row .d-value { font-family: 'Roboto Mono', monospace; font-weight: 600; color: #1C0E06; text-align: right; }
+
+    .calc-input-group { margin-bottom: 1.1rem; }
+    .calc-label { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(28,14,6,0.5); display: block; margin-bottom: 0.4rem; }
+    .calc-input { width: 100%; font-family: 'Roboto Mono', monospace; font-size: 0.88rem; font-weight: 600; color: #1C0E06; background: #fff; border: 1.5px solid rgba(28,14,6,0.12); border-radius: 2px; padding: 0.6rem 0.875rem; outline: none; transition: border-color 0.2s ease; }
+    .calc-input:focus { border-color: #C8952A; }
+    .calc-select { width: 100%; font-family: 'Roboto Mono', monospace; font-size: 0.85rem; font-weight: 600; color: #1C0E06; background: #fff; border: 1.5px solid rgba(28,14,6,0.12); border-radius: 2px; padding: 0.6rem 2rem 0.6rem 0.875rem; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8952A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; transition: border-color 0.2s ease; }
+    .calc-select:focus { border-color: #C8952A; }
+    .calc-result { background: #1C0E06; border-radius: 2px; padding: 1.1rem 1.25rem; margin-top: 1rem; }
+    .calc-result .monthly-lbl { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(200,149,42,0.65); margin-bottom: 0.25rem; }
+    .calc-result .monthly-val { font-family: 'Roboto Mono', monospace; font-size: 1.6rem; font-weight: 700; color: #C8952A; letter-spacing: -0.02em; }
+    .calc-result .monthly-note { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; color: rgba(240,230,204,0.35); margin-top: 0.3rem; }
+
+    .map-toggle-btn { font-family: 'Roboto Mono', monospace; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.45rem 0.875rem; border: 1.5px solid rgba(28,14,6,0.15); border-radius: 2px; background: #fff; cursor: pointer; color: rgba(28,14,6,0.55); transition: all 0.15s ease; }
+    .map-toggle-btn.active { background: #1C0E06; border-color: #1C0E06; color: #C8952A; }
+    .map-toggle-btn:hover:not(.active) { border-color: #C8952A; color: #C8952A; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-label { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(28,14,6,0.5); display: block; margin-bottom: 0.4rem; }
+    .form-input, .form-textarea, .form-select-el { width: 100%; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 400; color: #1C0E06; background: #fff; border: 1.5px solid rgba(28,14,6,0.12); border-radius: 2px; padding: 0.65rem 0.875rem; outline: none; transition: border-color 0.2s ease; }
+    .form-input:focus, .form-textarea:focus, .form-select-el:focus { border-color: #C8952A; }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-select-el { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C8952A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2.2rem; }
+
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(18,7,2,0.95); z-index: 1000; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    #lightbox.open { display: flex; flex-direction: column; }
+    .lb-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; border-bottom: 1px solid rgba(240,230,204,0.08); flex-shrink: 0; }
+    .lb-counter { font-family: 'Roboto Mono', monospace; font-size: 0.78rem; font-weight: 600; color: rgba(200,149,42,0.7); letter-spacing: 0.1em; }
+    .lb-close { width: 36px; height: 36px; border: 1px solid rgba(240,230,204,0.15); border-radius: 2px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s ease, background 0.2s ease; }
+    .lb-close:hover { border-color: #C8952A; background: rgba(200,149,42,0.1); }
+    .lb-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 1.5rem 5rem; overflow: hidden; }
+    #lb-img { max-width: 100%; max-height: calc(100vh - 220px); object-fit: contain; border-radius: 2px; transition: opacity 0.25s ease; }
+    .lb-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border: 1.5px solid rgba(240,230,204,0.18); border-radius: 2px; background: rgba(28,14,6,0.5); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s ease, background 0.2s ease; }
+    .lb-nav-btn:hover { border-color: #C8952A; background: rgba(200,149,42,0.15); }
+    #lb-prev { left: 1.25rem; }
+    #lb-next { right: 1.25rem; }
+    .lb-thumbnails { display: flex; gap: 6px; padding: 0.875rem 2rem; overflow-x: auto; background: rgba(18,7,2,0.6); border-top: 1px solid rgba(240,230,204,0.06); flex-shrink: 0; scrollbar-width: thin; scrollbar-color: rgba(200,149,42,0.3) transparent; }
+    .lb-thumb { width: 72px; height: 54px; object-fit: cover; flex-shrink: 0; border-radius: 2px; border: 2px solid transparent; cursor: pointer; opacity: 0.55; transition: opacity 0.2s ease, border-color 0.2s ease; filter: brightness(0.85); }
+    .lb-thumb.active, .lb-thumb:hover { opacity: 1; border-color: #C8952A; filter: brightness(1); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (min-width: 1024px) {
+      .sidebar-sticky { position: sticky; top: 100px; max-height: calc(100vh - 120px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(200,149,42,0.2) transparent; }
+    }
+
+    .badge-sale { background: #C8952A; color: #1C0E06; font-family:'Roboto Mono',monospace; font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:0.3rem 0.7rem; border-radius:2px; }
+
+    .all-photos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    @media (max-width: 640px) { .all-photos-grid { grid-template-columns: repeat(2, 1fr); } }
+    .all-photos-grid .gallery-img img { height: 160px; }
+
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 0.4rem; animation: pulse-green 2s infinite; }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+
+    footer .nav-link { color: #F0E6CC; }
+
+    @media (max-width: 900px) {
+      .gallery-hero-grid { grid-template-columns: 1fr; grid-template-rows: 300px; }
+      .gallery-hero-grid .thumb-grid { display: none; }
+      .gallery-hero-grid .main-img { grid-row: 1; }
+      .prop-layout { flex-direction: column; }
+      .prop-sidebar { width: 100% !important; }
+    }
+
+    .share-btn { display: inline-flex; align-items: center; gap: 0.45rem; font-family: 'Roboto Mono', monospace; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(28,14,6,0.5); border: 1.5px solid rgba(28,14,6,0.12); border-radius: 2px; padding: 0.45rem 0.875rem; background: #fff; cursor: pointer; transition: all 0.15s ease; text-decoration: none; }
+    .share-btn:hover { border-color: #C8952A; color: #C8952A; }
+
+    .success-msg { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); border-radius: 2px; padding: 0.875rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 500; color: #166534; display: none; }
+
+    input[type="range"] { -webkit-appearance: none; width: 100%; height: 3px; border-radius: 2px; background: linear-gradient(to right, #C8952A 0%, #C8952A var(--val, 20%), rgba(28,14,6,0.15) var(--val, 20%), rgba(28,14,6,0.15) 100%); outline: none; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #C8952A; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(200,149,42,0.4); cursor: pointer; transition: transform 0.15s ease; }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+    .map-frame-wrapper { position: relative; border-radius: 2px; overflow: hidden; border: 1px solid rgba(28,14,6,0.1); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s ease,backdrop-filter 0.3s ease,box-shadow 0.3s ease,height 0.3s ease;">
+    <div id="navbar-inner" style="max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:90px;transition:height 0.3s ease;">
+      <a href="Homepage.html" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;flex-shrink:0;" aria-label="Caribbean Homes Home">
+        <img id="nav-logo" src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:179px;width:auto;transition:height 0.3s ease;" />
+      </a>
+      <div style="display:flex;align-items:center;gap:2.5rem;" class="hidden md:flex">
+        <a href="listings.html" class="nav-link active">Listings</a>
+        <a href="Homepage.html#about" class="nav-link">About</a>
+        <a href="Homepage.html#testimonials" class="nav-link">Testimonials</a>
+        <a href="Homepage.html#contact" class="nav-link">Contact</a>
+      </div>
+      <button id="hamburger" aria-label="Open menu" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;" class="md:hidden">
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:transform 0.2s ease,opacity 0.2s ease;" id="hb1"></span>
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:opacity 0.2s ease;" id="hb2"></span>
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:transform 0.2s ease,opacity 0.2s ease;" id="hb3"></span>
+      </button>
+    </div>
+    <div id="mobile-menu" style="flex-direction:column;gap:0;background:#F0E6CC;border-top:1px solid rgba(28,14,6,0.1);padding:1rem 2rem 1.5rem;">
+      <a href="listings.html" class="nav-link active" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">Listings</a>
+      <a href="Homepage.html#about" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">About</a>
+      <a href="Homepage.html#testimonials" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">Testimonials</a>
+      <a href="Homepage.html#contact" class="nav-link" style="padding:0.75rem 0;display:block;">Contact</a>
+    </div>
+  </nav>
+
+  <main style="padding-top:90px;">
+
+    <!-- Photo Gallery Hero -->
+    <div style="background:#1C0E06;padding:0.5rem 0 0;">
+      <div style="max-width:1440px;margin:0 auto;">
+        <div class="gallery-hero-grid" id="galleryGrid">
+          <div class="gallery-img main-img" onclick="openLightbox(0)">
+            <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1200&h=900&fit=crop" alt="Hilltop Estate — Main View" />
+            <div class="photo-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+          <div class="thumb-grid" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;">
+            <div class="gallery-img" onclick="openLightbox(1)">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop" alt="Infinity pool with ocean view" />
+              <div class="photo-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+            </div>
+            <div class="gallery-img" onclick="openLightbox(2)">
+              <img src="https://images.unsplash.com/photo-1600047508788-786f3865b372?w=600&h=400&fit=crop" alt="Open-plan living room" />
+              <div class="photo-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+            </div>
+            <div class="gallery-img" onclick="openLightbox(3)">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop" alt="Master bedroom suite" />
+              <div class="photo-overlay"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+            </div>
+            <div class="gallery-img" style="position:relative;" onclick="openLightbox(4)">
+              <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop" alt="Tropical terrace" style="filter:brightness(0.55);" />
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.4rem;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                <span style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C8952A;">View All 12 Photos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Header + Breadcrumb -->
+    <div style="background:#fff;border-bottom:1px solid rgba(28,14,6,0.07);padding:1rem 2rem;">
+      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:0.5rem;">
+          <a href="Homepage.html" style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.38);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C8952A'" onmouseout="this.style.color='rgba(28,14,6,0.38)'">Home</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(28,14,6,0.25)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <a href="listings.html" style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.38);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C8952A'" onmouseout="this.style.color='rgba(28,14,6,0.38)'">Listings</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(28,14,6,0.25)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <span style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#C8952A;">Hilltop Estate</span>
+        </nav>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <button class="share-btn" onclick="handleShare()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
+          </button>
+          <button class="share-btn" id="saveBtn" onclick="handleSave()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="heartIcon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span id="saveLbl">Save</span>
+          </button>
+          <a href="listings.html" class="share-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            All Listings
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Property Layout -->
+    <div style="max-width:1280px;margin:0 auto;padding:2.5rem 2rem 4rem;">
+      <div class="prop-layout" style="display:flex;gap:2.5rem;align-items:flex-start;">
+
+        <!-- LEFT — Main Content -->
+        <div style="flex:1;min-width:0;">
+
+          <!-- Title block -->
+          <div class="reveal" style="margin-bottom:1.75rem;">
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.65rem;flex-wrap:wrap;">
+              <span class="badge-sale" style="background:transparent;color:#C8952A;border:1px solid #C8952A;">For Sale</span>
+              <span style="font-family:'Roboto Mono',monospace;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.38);">ID: CH-SL-2025-002</span>
+            </div>
+            <h1 style="font-family:'Roboto Mono',monospace;font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-0.025em;color:#1C0E06;line-height:1.1;margin-bottom:0.5rem;">Hilltop Estate</h1>
+            <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.5rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style="font-family:'Montserrat',sans-serif;font-size:0.875rem;font-weight:400;color:rgba(28,14,6,0.55);">Rodney Bay, Gros Islet, St. Lucia LC01101</span>
+            </div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:1.85rem;font-weight:700;color:#C8952A;letter-spacing:-0.02em;">$1,495,000</div>
+          </div>
+
+          <!-- Key stats row -->
+          <div class="reveal" style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.25rem;">
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V12H21V22"/><path d="M2 12L12 2L22 12"/><path d="M9 22V17H15V22"/></svg>
+              <div><div class="stat-val">4</div><div class="stat-lbl">Bedrooms</div></div>
+            </div>
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12H20"/><path d="M4 12V18a1 1 0 001 1h14a1 1 0 001-1v-6"/><path d="M4 12V6a1 1 0 011-1h6v7"/></svg>
+              <div><div class="stat-val">3</div><div class="stat-lbl">Bathrooms</div></div>
+            </div>
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              <div><div class="stat-val">3,100</div><div class="stat-lbl">Sq Ft</div></div>
+            </div>
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <div><div class="stat-val">0.8</div><div class="stat-lbl">Acres</div></div>
+            </div>
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <div><div class="stat-val">2019</div><div class="stat-lbl">Year Built</div></div>
+            </div>
+            <div class="stat-pill">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <div><div class="stat-val">2</div><div class="stat-lbl">Garage</div></div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="reveal" style="margin-bottom:2.5rem;">
+            <p class="section-heading">About This Property</p>
+            <h2 class="section-title">Elevated Living Above Rodney Bay</h2>
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:400;line-height:1.85;color:rgba(28,14,6,0.7);display:flex;flex-direction:column;gap:1rem;">
+              <p>Perched dramatically above the sparkling waters of Rodney Bay, this magnificent hilltop estate commands sweeping panoramic views stretching from the Piton peaks to the shimmering Caribbean Sea. Set amid 0.8 acres of lush, manicured tropical gardens, the property offers an exceptional combination of natural grandeur and refined island living.</p>
+              <p>Spanning 3,100 square feet across a thoughtfully designed single level, the estate's open-plan architecture embraces the surrounding landscape at every turn. Expansive sliding glass doors open onto a wraparound covered terrace where the saltwater infinity pool appears to spill effortlessly into the horizon. The property captures the prevailing trade winds, keeping the interior naturally cool and pleasantly breezy year-round.</p>
+              <p>Four spacious bedrooms, each appointed with custom teak millwork, premium linens, and en-suite bathrooms, provide serene retreats for both owners and guests. The chef's kitchen — outfitted with Sub-Zero refrigeration and integrated Wolf appliances — opens to a generous dining terrace perfectly oriented for alfresco evenings under the St. Lucia stars.</p>
+            </div>
+          </div>
+
+          <!-- Features & Amenities -->
+          <div class="reveal" style="margin-bottom:2.5rem;">
+            <p class="section-heading">Features & Amenities</p>
+            <h2 class="section-title">What's Included</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Infinity Pool</span>
+              <span class="feature-tag">🌊 Panoramic Ocean Views</span>
+              <span class="feature-tag">🌿 Tropical Gardens</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Chef's Kitchen</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1.11h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 15a2 2 0 0 1 1 1.92z"/></svg> Smart Home System</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Covered Terrace</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> 2-Car Garage</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 24/7 Security</span>
+              <span class="feature-tag">🛁 Marble Bathrooms</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Solar Panels</span>
+              <span class="feature-tag">🏋️ Private Gym</span>
+              <span class="feature-tag"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg> Rooftop Deck</span>
+              <span class="feature-tag">🌐 High-Speed Fibre</span>
+              <span class="feature-tag">❄️ Central A/C</span>
+            </div>
+          </div>
+
+          <!-- Photo Gallery -->
+          <div class="reveal" style="margin-bottom:2.5rem;">
+            <p class="section-heading">Photo Gallery</p>
+            <h2 class="section-title">All Property Photos</h2>
+            <div class="all-photos-grid">
+              <div class="gallery-img" onclick="openLightbox(0)"><img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600&h=400&fit=crop" alt="Exterior — hilltop facade" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(1)"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop" alt="Infinity pool with ocean panorama" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(2)"><img src="https://images.unsplash.com/photo-1600047508788-786f3865b372?w=600&h=400&fit=crop" alt="Open-plan living room" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(3)"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop" alt="Master bedroom" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(4)"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop" alt="Tropical garden terrace" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(5)"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop" alt="Chef's kitchen" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(6)"><img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&h=400&fit=crop" alt="Dining terrace" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(7)"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="En-suite bathroom" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(8)"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=400&fit=crop" alt="Sunset from the terrace" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(9)"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=400&fit=crop" alt="Pool at dusk" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(10)"><img src="https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=600&h=400&fit=crop" alt="Aerial view" /><div class="photo-overlay"></div></div>
+              <div class="gallery-img" onclick="openLightbox(11)"><img src="https://images.unsplash.com/photo-1505873242700-f289a29e1724?w=600&h=400&fit=crop" alt="Night illumination" /><div class="photo-overlay"></div></div>
+            </div>
+          </div>
+
+          <!-- Location & Area Description -->
+          <div class="reveal" style="margin-bottom:2.5rem;">
+            <p class="section-heading">Location & Neighbourhood</p>
+            <h2 class="section-title">Rodney Bay, Gros Islet — The Northern Riviera</h2>
+
+            <div style="background:#fff;border:1px solid rgba(28,14,6,0.08);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;">
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">Street Address</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">Piton Ridge Drive</p>
+              </div>
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">City / Town</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">Rodney Bay</p>
+              </div>
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">Quarter</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">Gros Islet</p>
+              </div>
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">Postal Code</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">LC01101</p>
+              </div>
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">Country</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">St. Lucia</p>
+              </div>
+              <div>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.25rem;">Region</p>
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:600;color:#1C0E06;">Caribbean</p>
+              </div>
+            </div>
+
+            <div style="font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:400;line-height:1.85;color:rgba(28,14,6,0.7);display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
+              <p>Rodney Bay is St. Lucia's most cosmopolitan enclave, renowned for its world-class marina, vibrant dining scene, and enviable position along the island's north-western coastline. The area seamlessly blends natural Caribbean beauty with modern infrastructure and international connectivity.</p>
+              <p>Piton Ridge Drive, where this estate sits, is among the most prestigious hillside addresses in Gros Islet Quarter — offering unobstructed views of the marina, Reduit Beach, and the distant Piton peaks while remaining just minutes from the restaurants, boutiques, and nightlife of Rodney Bay Village. The Hewanorra International Airport is approximately 60 minutes south.</p>
+              <p>The neighbourhood benefits from consistent trade winds that moderate temperatures year-round. Reduit Beach, one of the Caribbean's most celebrated stretches of white sand, is a five-minute drive. For sailing enthusiasts, Rodney Bay Marina is the premier facility in the Eastern Caribbean, hosting the annual Atlantic Rally for Cruisers and offering full yacht services.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.5rem;">
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Rodney Bay Marina</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">5 min drive</p></div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Reduit Beach</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">5 min drive</p></div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Pigeon Island NP</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">10 min drive</p></div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Rodney Bay Village</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">3 min drive</p></div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Cap Estate Golf Club</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">8 min drive</p></div>
+              </div>
+              <div style="background:#fff;border:1px solid rgba(28,14,6,0.07);border-radius:2px;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.75rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div><p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;font-weight:700;color:#1C0E06;">Hewanorra Airport</p><p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.45);">60 min drive</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map Section -->
+          <div class="reveal" style="margin-bottom:2.5rem;">
+            <p class="section-heading">Property Location</p>
+            <h2 class="section-title">Find This Property</h2>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.875rem;flex-wrap:wrap;">
+              <button class="map-toggle-btn active" id="mapBtnRoad" onclick="switchMap('road')">Map View</button>
+              <button class="map-toggle-btn" id="mapBtnSat" onclick="switchMap('satellite')">Satellite View</button>
+              <a href="https://www.google.com/maps/search/Rodney+Bay+St+Lucia" target="_blank" rel="noopener noreferrer" class="map-toggle-btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Open in Google Maps
+              </a>
+            </div>
+            <div class="map-frame-wrapper">
+              <iframe
+                id="mapFrame"
+                src="https://maps.google.com/maps?q=Rodney+Bay,+Gros+Islet,+Saint+Lucia&t=m&z=14&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="420"
+                style="border:0;display:block;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Hilltop Estate Location — Rodney Bay, St. Lucia">
+              </iframe>
+            </div>
+            <p style="font-family:'Montserrat',sans-serif;font-size:0.7rem;color:rgba(28,14,6,0.4);margin-top:0.5rem;">Use the satellite and street view controls within the map for an immersive view of the neighbourhood.</p>
+          </div>
+
+        </div><!-- /left main content -->
+
+        <!-- RIGHT — Sidebar -->
+        <div class="prop-sidebar sidebar-sticky" style="width:380px;flex-shrink:0;display:flex;flex-direction:column;gap:1.5rem;">
+
+          <!-- Price Card -->
+          <div class="detail-card">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.5rem;">
+              <div>
+                <p style="font-family:'Roboto Mono',monospace;font-size:1.75rem;font-weight:700;color:#C8952A;letter-spacing:-0.02em;line-height:1.1;">$1,495,000</p>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.72rem;color:rgba(28,14,6,0.45);margin-top:0.25rem;">Asking Price · USD</p>
+              </div>
+              <div style="text-align:right;">
+                <p style="font-family:'Roboto Mono',monospace;font-size:0.75rem;font-weight:600;color:rgba(28,14,6,0.55);">$482</p>
+                <p style="font-family:'Montserrat',sans-serif;font-size:0.65rem;color:rgba(28,14,6,0.38);">per sq ft</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.4rem;padding:0.5rem 0;border-top:1px solid rgba(28,14,6,0.06);border-bottom:1px solid rgba(28,14,6,0.06);margin-bottom:1rem;">
+              <span class="status-dot"></span>
+              <span style="font-family:'Roboto Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1C0E06;">Actively Listed</span>
+              <span style="font-family:'Montserrat',sans-serif;font-size:0.68rem;color:rgba(28,14,6,0.38);margin-left:auto;">Listed Apr 2025</span>
+            </div>
+            <a href="#schedule" class="btn-gold" style="display:block;text-align:center;width:100%;margin-bottom:0.6rem;">Schedule a Viewing</a>
+            <a href="Homepage.html#contact" class="btn-outline" style="display:block;text-align:center;width:100%;">Request Information</a>
+          </div>
+
+          <!-- Property Details -->
+          <div class="detail-card">
+            <p class="section-heading" style="margin-bottom:1rem;">Property Details</p>
+            <div class="details-row"><span class="d-label">Property ID</span><span class="d-value">CH-SL-2025-002</span></div>
+            <div class="details-row"><span class="d-label">Price</span><span class="d-value" style="color:#C8952A;">$1,495,000</span></div>
+            <div class="details-row"><span class="d-label">Property Type</span><span class="d-value">Hilltop Estate</span></div>
+            <div class="details-row"><span class="d-label">Property Status</span><span class="d-value" style="color:#22c55e;">For Sale</span></div>
+            <div class="details-row"><span class="d-label">Bedrooms</span><span class="d-value">4</span></div>
+            <div class="details-row"><span class="d-label">Bathrooms</span><span class="d-value">3 Full + 1 Half</span></div>
+            <div class="details-row"><span class="d-label">Living Area</span><span class="d-value">3,100 sq ft</span></div>
+            <div class="details-row"><span class="d-label">Lot Size</span><span class="d-value">0.8 Acres</span></div>
+            <div class="details-row"><span class="d-label">Year Built</span><span class="d-value">2019</span></div>
+            <div class="details-row"><span class="d-label">Garage</span><span class="d-value">2 Spaces</span></div>
+            <div class="details-row"><span class="d-label">Island</span><span class="d-value">St. Lucia</span></div>
+            <div class="details-row"><span class="d-label">Ownership</span><span class="d-value">Freehold</span></div>
+          </div>
+
+          <!-- Mortgage Calculator -->
+          <div class="detail-card" id="mortgage">
+            <p class="section-heading" style="margin-bottom:1rem;">Mortgage Calculator</p>
+            <div class="calc-input-group">
+              <label class="calc-label" for="calcPrice">Home Price (USD)</label>
+              <input class="calc-input" type="text" id="calcPrice" value="1,495,000" oninput="calcMortgage()" />
+            </div>
+            <div class="calc-input-group">
+              <label class="calc-label" for="calcDownSlider">Down Payment — <span id="calcDownPct">20</span>% (<span id="calcDownAmt">$299,000</span>)</label>
+              <input type="range" id="calcDownSlider" min="5" max="50" value="20" step="1" oninput="updateDownPayment(this.value)" style="--val:20%;" />
+              <div style="display:flex;justify-content:space-between;margin-top:0.3rem;">
+                <span style="font-family:'Roboto Mono',monospace;font-size:0.62rem;color:rgba(28,14,6,0.35);">5%</span>
+                <span style="font-family:'Roboto Mono',monospace;font-size:0.62rem;color:rgba(28,14,6,0.35);">50%</span>
+              </div>
+            </div>
+            <div class="calc-input-group">
+              <label class="calc-label" for="calcRate">Interest Rate (%)</label>
+              <input class="calc-input" type="number" id="calcRate" value="7.25" step="0.05" min="1" max="20" oninput="calcMortgage()" />
+            </div>
+            <div class="calc-input-group">
+              <label class="calc-label" for="calcTerm">Loan Term</label>
+              <select class="calc-select" id="calcTerm" onchange="calcMortgage()">
+                <option value="30">30 Years</option>
+                <option value="25">25 Years</option>
+                <option value="20">20 Years</option>
+                <option value="15">15 Years</option>
+                <option value="10">10 Years</option>
+              </select>
+            </div>
+            <div class="calc-result">
+              <p class="monthly-lbl">Estimated Monthly Payment</p>
+              <p class="monthly-val" id="calcMonthly">$9,142</p>
+              <p class="monthly-note">Principal & interest only. Excludes taxes, insurance & HOA fees. For guidance only — consult a licensed mortgage advisor.</p>
+            </div>
+            <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.4rem;">
+              <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+                <span style="font-family:'Montserrat',sans-serif;color:rgba(28,14,6,0.5);">Loan Amount</span>
+                <span style="font-family:'Roboto Mono',monospace;font-weight:600;color:#1C0E06;" id="calcLoanAmt">$1,196,000</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+                <span style="font-family:'Montserrat',sans-serif;color:rgba(28,14,6,0.5);">Total Interest (est.)</span>
+                <span style="font-family:'Roboto Mono',monospace;font-weight:600;color:#1C0E06;" id="calcTotalInterest">$2,085,000</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.78rem;">
+                <span style="font-family:'Montserrat',sans-serif;color:rgba(28,14,6,0.5);">Total Cost (est.)</span>
+                <span style="font-family:'Roboto Mono',monospace;font-weight:600;color:#C8952A;" id="calcTotalCost">$3,281,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schedule a Visit -->
+          <div class="detail-card" id="schedule">
+            <p class="section-heading" style="margin-bottom:1rem;">Schedule a Viewing</p>
+            <form id="scheduleForm" onsubmit="submitSchedule(event)">
+              <div class="form-group">
+                <label class="form-label" for="visitorName">Full Name *</label>
+                <input class="form-input" type="text" id="visitorName" placeholder="Your full name" required />
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="form-group">
+                  <label class="form-label" for="visitorEmail">Email *</label>
+                  <input class="form-input" type="email" id="visitorEmail" placeholder="your@email.com" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="visitorPhone">Phone</label>
+                  <input class="form-input" type="tel" id="visitorPhone" placeholder="+1 (000) 000-0000" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+                <div class="form-group">
+                  <label class="form-label" for="visitDate">Preferred Date *</label>
+                  <input class="form-input" type="date" id="visitDate" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="visitTime">Preferred Time</label>
+                  <select class="form-select-el" id="visitTime">
+                    <option value="">Select time</option>
+                    <option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+                    <option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option>
+                    <option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="visitType">Viewing Type</label>
+                <select class="form-select-el" id="visitType">
+                  <option>In-Person Tour</option>
+                  <option>Virtual Tour (Video Call)</option>
+                  <option>Private Showing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="visitMessage">Message (Optional)</label>
+                <textarea class="form-textarea" id="visitMessage" placeholder="Any questions or special requests for your viewing..."></textarea>
+              </div>
+              <div id="scheduleSuccess" class="success-msg">
+                ✓ Your viewing request has been received. A Caribbean Homes agent will confirm your appointment within 24 hours.
+              </div>
+              <button type="submit" class="btn-gold" style="width:100%;text-align:center;border:none;">Request Viewing</button>
+            </form>
+          </div>
+
+          <!-- Agent Card -->
+          <div class="detail-card" style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#C8952A,#7B4A28);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Roboto Mono',monospace;font-size:1.1rem;font-weight:700;color:#F0E6CC;">CH</div>
+            <div style="flex:1;min-width:0;">
+              <p style="font-family:'Roboto Mono',monospace;font-size:0.85rem;font-weight:700;color:#1C0E06;margin-bottom:0.1rem;">Caribbean Homes Agent</p>
+              <p style="font-family:'Montserrat',sans-serif;font-size:0.72rem;color:rgba(28,14,6,0.45);margin-bottom:0.4rem;">Licensed Caribbean Property Specialist</p>
+              <a href="Homepage.html#contact" style="font-family:'Roboto Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#C8952A;text-decoration:none;">Contact Agent →</a>
+            </div>
+          </div>
+
+        </div><!-- /sidebar -->
+
+      </div><!-- /prop-layout -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:#120A03;border-top:1px solid rgba(240,230,204,0.06);padding:3.5rem 2rem 2rem;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;flex-wrap:wrap;">
+        <div>
+          <img src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:40px;width:auto;margin-bottom:1.25rem;" />
+          <p style="font-family:'Montserrat',sans-serif;font-size:0.825rem;font-weight:300;line-height:1.75;color:rgba(240,230,204,0.45);max-width:260px;">Premier real estate services across the Caribbean — connecting discerning buyers with extraordinary island properties since 2008.</p>
+          <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
+            <a href="#" aria-label="Instagram" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.borderColor='#C8952A'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.borderColor='#C8952A'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.borderColor='#C8952A'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Navigation</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="listings.html" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Listings</a>
+            <a href="Homepage.html#about" class="nav-link" style="font-size:0.82rem;opacity:0.55;">About Us</a>
+            <a href="Homepage.html#testimonials" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Testimonials</a>
+            <a href="Homepage.html#contact" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Locations</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Barbados</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">St. Lucia</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Jamaica</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Cayman Islands</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Trinidad & Tobago</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Legal</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Privacy Policy</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Terms of Service</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(240,230,204,0.06);padding-top:1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;color:rgba(240,230,204,0.25);letter-spacing:0.04em;">© 2025 Caribbean Homes. All rights reserved.</p>
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.68rem;color:rgba(240,230,204,0.2);">Property ID: CH-SL-2025-002 · Listed April 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo gallery">
+    <div class="lb-header">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <img src="brand_assets/Caribbean Homes LOGO.svg" alt="" style="height:28px;width:auto;opacity:0.6;" />
+        <span style="font-family:'Roboto Mono',monospace;font-size:0.78rem;font-weight:700;color:rgba(240,230,204,0.5);letter-spacing:0.06em;">HILLTOP ESTATE · RODNEY BAY, ST. LUCIA</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span class="lb-counter" id="lbCounter">1 / 12</span>
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close gallery">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F0E6CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="lb-main">
+      <button class="lb-nav-btn" id="lb-prev" onclick="lbPrev()" aria-label="Previous photo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0E6CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img id="lb-img" src="" alt="" />
+      <button class="lb-nav-btn" id="lb-next" onclick="lbNext()" aria-label="Next photo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0E6CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <div class="lb-thumbnails" id="lbThumbs"></div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const photos = [
+      { src: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1400&h=900&fit=crop', alt: 'Exterior — hilltop facade' },
+      { src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&h=900&fit=crop', alt: 'Infinity pool with ocean panorama' },
+      { src: 'https://images.unsplash.com/photo-1600047508788-786f3865b372?w=1400&h=900&fit=crop', alt: 'Open-plan living room' },
+      { src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400&h=900&fit=crop', alt: 'Master bedroom suite' },
+      { src: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=900&fit=crop', alt: 'Tropical garden terrace' },
+      { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1400&h=900&fit=crop', alt: "Chef's kitchen" },
+      { src: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1400&h=900&fit=crop', alt: 'Dining terrace' },
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=900&fit=crop', alt: 'En-suite bathroom' },
+      { src: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1400&h=900&fit=crop', alt: 'Sunset from the terrace' },
+      { src: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1400&h=900&fit=crop', alt: 'Pool at dusk' },
+      { src: 'https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?w=1400&h=900&fit=crop', alt: 'Aerial view' },
+      { src: 'https://images.unsplash.com/photo-1505873242700-f289a29e1724?w=1400&h=900&fit=crop', alt: 'Night illumination' },
+    ];
+
+    let currentPhoto = 0;
+
+    function openLightbox(index) {
+      currentPhoto = index;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderLightbox();
+      buildThumbs();
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function renderLightbox() {
+      const img = document.getElementById('lb-img');
+      img.style.opacity = '0';
+      img.src = photos[currentPhoto].src;
+      img.alt = photos[currentPhoto].alt;
+      img.onload = () => { img.style.opacity = '1'; };
+      document.getElementById('lbCounter').textContent = `${currentPhoto + 1} / ${photos.length}`;
+      document.querySelectorAll('.lb-thumb').forEach((t, i) => t.classList.toggle('active', i === currentPhoto));
+    }
+    function buildThumbs() {
+      const container = document.getElementById('lbThumbs');
+      if (container.children.length > 0) return;
+      photos.forEach((p, i) => {
+        const img = document.createElement('img');
+        img.src = p.src.replace('w=1400&h=900', 'w=200&h=150');
+        img.alt = p.alt;
+        img.className = 'lb-thumb' + (i === currentPhoto ? ' active' : '');
+        img.onclick = () => { currentPhoto = i; renderLightbox(); };
+        container.appendChild(img);
+      });
+    }
+    function lbPrev() { currentPhoto = (currentPhoto - 1 + photos.length) % photos.length; renderLightbox(); }
+    function lbNext() { currentPhoto = (currentPhoto + 1) % photos.length; renderLightbox(); }
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') lbPrev();
+      if (e.key === 'ArrowRight') lbNext();
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    function switchMap(type) {
+      const frame = document.getElementById('mapFrame');
+      const btnRoad = document.getElementById('mapBtnRoad');
+      const btnSat = document.getElementById('mapBtnSat');
+      if (type === 'satellite') {
+        frame.src = 'https://maps.google.com/maps?q=Rodney+Bay,+Gros+Islet,+Saint+Lucia&t=k&z=14&ie=UTF8&iwloc=&output=embed';
+        btnSat.classList.add('active'); btnRoad.classList.remove('active');
+      } else {
+        frame.src = 'https://maps.google.com/maps?q=Rodney+Bay,+Gros+Islet,+Saint+Lucia&t=m&z=14&ie=UTF8&iwloc=&output=embed';
+        btnRoad.classList.add('active'); btnSat.classList.remove('active');
+      }
+    }
+
+    function parseMoney(val) { return parseFloat(String(val).replace(/,/g, '')) || 0; }
+    function formatMoney(val) { return Math.round(val).toLocaleString('en-US'); }
+
+    function updateDownPayment(pct) {
+      const price = parseMoney(document.getElementById('calcPrice').value);
+      const downAmt = price * (pct / 100);
+      document.getElementById('calcDownPct').textContent = pct;
+      document.getElementById('calcDownAmt').textContent = '$' + formatMoney(downAmt);
+      const slider = document.getElementById('calcDownSlider');
+      const valPct = ((pct - +slider.min) / (+slider.max - +slider.min) * 100).toFixed(1);
+      slider.style.setProperty('--val', valPct + '%');
+      calcMortgage();
+    }
+
+    function calcMortgage() {
+      const price = parseMoney(document.getElementById('calcPrice').value);
+      const downPct = +document.getElementById('calcDownSlider').value;
+      const rate = parseFloat(document.getElementById('calcRate').value) || 7.25;
+      const term = +document.getElementById('calcTerm').value;
+      const down = price * (downPct / 100);
+      document.getElementById('calcDownAmt').textContent = '$' + formatMoney(down);
+      const loan = price - down;
+      const monthlyRate = rate / 100 / 12;
+      const payments = term * 12;
+      let monthly = monthlyRate > 0 ? loan * (monthlyRate * Math.pow(1 + monthlyRate, payments)) / (Math.pow(1 + monthlyRate, payments) - 1) : loan / payments;
+      const totalPaid = monthly * payments;
+      document.getElementById('calcMonthly').textContent = '$' + formatMoney(monthly);
+      document.getElementById('calcLoanAmt').textContent = '$' + formatMoney(loan);
+      document.getElementById('calcTotalInterest').textContent = '$' + formatMoney(totalPaid - loan);
+      document.getElementById('calcTotalCost').textContent = '$' + formatMoney(totalPaid + down);
+    }
+    calcMortgage();
+
+    function submitSchedule(e) {
+      e.preventDefault();
+      const success = document.getElementById('scheduleSuccess');
+      success.style.display = 'block';
+      success.style.animation = 'fadeIn 0.5s ease both';
+      e.target.querySelector('button[type="submit"]').textContent = 'Request Sent ✓';
+      e.target.querySelector('button[type="submit"]').style.background = '#22c55e';
+      e.target.querySelector('button[type="submit"]').style.borderColor = '#22c55e';
+      e.target.querySelector('button[type="submit"]').disabled = true;
+    }
+    document.getElementById('visitDate').min = new Date().toISOString().split('T')[0];
+
+    let saved = false;
+    function handleSave() {
+      saved = !saved;
+      document.getElementById('saveLbl').textContent = saved ? 'Saved' : 'Save';
+      document.getElementById('heartIcon').setAttribute('fill', saved ? '#C8952A' : 'none');
+      document.getElementById('heartIcon').setAttribute('stroke', saved ? '#C8952A' : 'currentColor');
+    }
+    function handleShare() {
+      if (navigator.share) {
+        navigator.share({ title: 'Hilltop Estate — Rodney Bay, St. Lucia | Caribbean Homes', text: 'Stunning 4-bed hilltop estate in Rodney Bay, St. Lucia. Listed at $1,495,000.', url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied to clipboard!')).catch(() => alert('Share this page: ' + window.location.href));
+      }
+    }
+
+    const navbar = document.getElementById('navbar');
+    const navbarInner = document.getElementById('navbar-inner');
+    const navLogo = document.getElementById('nav-logo');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.style.background = 'rgba(240,230,204,0.96)';
+        navbar.style.backdropFilter = 'blur(12px)';
+        navbar.style.boxShadow = '0 2px 20px rgba(28,14,6,0.08)';
+        navbarInner.style.height = '68px';
+        navLogo.style.height = '120px';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.boxShadow = 'none';
+        navbarInner.style.height = '90px';
+        navLogo.style.height = '179px';
+      }
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      document.getElementById('hb1').style.transform = open ? 'translateY(7px) rotate(45deg)' : '';
+      document.getElementById('hb2').style.opacity = open ? '0' : '1';
+      document.getElementById('hb3').style.transform = open ? 'translateY(-7px) rotate(-45deg)' : '';
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
