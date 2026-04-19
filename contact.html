@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Caribbean Homes</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            espresso: '#1C0E06',
+            cream:    '#F0E6CC',
+            walnut:   '#7B4A28',
+            gold:     '#C8952A',
+            caramel:  '#C4874A',
+            charcoal: '#2D2020',
+          },
+          fontFamily: {
+            mono:  ['"Roboto Mono"', 'monospace'],
+            sans:  ['Montserrat', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #F0E6CC;
+      color: #1C0E06;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain texture ── */
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .anim-fadeup       { animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both; }
+    .anim-fadein       { animation: fadeIn 0.7s ease both; }
+    .delay-100 { animation-delay: 0.10s; }
+    .delay-200 { animation-delay: 0.20s; }
+    .delay-300 { animation-delay: 0.35s; }
+    .delay-400 { animation-delay: 0.50s; }
+    .delay-500 { animation-delay: 0.65s; }
+
+    /* ── Nav ── */
+    .nav-link {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1C0E06;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-link:hover { opacity: 1; color: #C8952A; }
+    .nav-link:focus-visible { outline: 2px solid #C8952A; outline-offset: 4px; border-radius: 2px; }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      background: #C8952A;
+      color: #1C0E06;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid #C8952A;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-gold:hover {
+      background: #C4874A;
+      border-color: #C4874A;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(200,149,42,0.35);
+    }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:focus-visible { outline: 2px solid #F0E6CC; outline-offset: 3px; }
+
+    .btn-outline {
+      background: transparent;
+      color: #1C0E06;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid rgba(28,14,6,0.45);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      border-color: #1C0E06;
+      color: #1C0E06;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 2px solid #C8952A; outline-offset: 3px; }
+
+    /* ── Section divider (diagonal) ── */
+    .diagonal-divider {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .diagonal-divider svg {
+      display: block;
+      width: 100%;
+      height: 60px;
+    }
+
+    /* ── Property card ── */
+    .property-card {
+      background: #FFFFFF;
+      border-top: 3px solid #C8952A;
+      border-radius: 2px;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+    }
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(200,149,42,0.22), 0 4px 16px rgba(28,14,6,0.12);
+    }
+    .property-card .img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .property-card .img-wrap img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      filter: brightness(0.88) saturate(0.9);
+    }
+    .property-card:hover .img-wrap img {
+      transform: scale(1.04);
+    }
+    .property-card .img-wrap .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,14,6,0.75) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .property-card .img-wrap .price-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #C8952A;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Value prop card ── */
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid #C8952A;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Testimonial card ── */
+    .testimonial-card {
+      background: #FFFFFF;
+      border-radius: 2px;
+      padding: 2rem;
+      position: relative;
+      border-bottom: 3px solid #C8952A;
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.2s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(200,149,42,0.14);
+    }
+    .testimonial-card .quote-mark {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 5rem;
+      line-height: 0.6;
+      color: #C8952A;
+      opacity: 0.35;
+      position: absolute;
+      top: 1.25rem;
+      left: 1.5rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── Search bar ── */
+    .search-select {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: #1C0E06;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      width: 100%;
+      outline: none;
+      cursor: pointer;
+    }
+    .search-select option {
+      background: #F0E6CC;
+      color: #1C0E06;
+    }
+    .search-field {
+      border-right: 1px solid rgba(28,14,6,0.12);
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .search-field:last-of-type { border-right: none; }
+    .search-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C8952A;
+      font-weight: 600;
+    }
+
+    /* ── Footer nav links (light on dark) ── */
+    footer .nav-link { color: #F0E6CC; }
+
+    /* ── Mobile nav ── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    /* ── Scroll-reveal (JS fallback) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FAQ details ── */
+    details.faq-item {
+      background: #FFFFFF;
+      border: 1px solid rgba(28,14,6,0.08);
+      border-radius: 2px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s ease;
+    }
+    details.faq-item[open] {
+      border-color: rgba(200,149,42,0.35);
+    }
+    details.faq-item summary {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #1C0E06;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary::after {
+      content: '+';
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.5rem;
+      color: #C8952A;
+      font-weight: 400;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+    details.faq-item[open] summary::after {
+      content: '−';
+    }
+    details.faq-item > p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(28,14,6,0.7);
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(28,14,6,0.06);
+    }
+  </style>
+</head>
+<body class="bg-cream text-espresso">
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background 0.3s ease,backdrop-filter 0.3s ease,box-shadow 0.3s ease,height 0.3s ease;">
+    <div id="navbar-inner" style="max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:90px;transition:height 0.3s ease;">
+      <!-- Logo -->
+      <a href="Homepage.html" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;flex-shrink:0;" aria-label="Caribbean Homes Home">
+        <img id="nav-logo" src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:179px;width:auto;transition:height 0.3s ease;" />
+      </a>
+
+      <!-- Desktop nav -->
+      <div style="display:flex;align-items:center;gap:2.5rem;" class="hidden md:flex">
+        <a href="listings.html" class="nav-link">Listings</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="testimonials.html" class="nav-link">Testimonials</a>
+        <a href="contact.html" class="nav-link" style="color:#C8952A;opacity:1;">Contact</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="hamburger" aria-label="Open menu" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;" class="md:hidden">
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:transform 0.2s ease,opacity 0.2s ease;" id="hb1"></span>
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:opacity 0.2s ease;" id="hb2"></span>
+        <span style="display:block;width:22px;height:2px;background:#1C0E06;transition:transform 0.2s ease,opacity 0.2s ease;" id="hb3"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" style="flex-direction:column;gap:0;background:#F0E6CC;border-top:1px solid rgba(28,14,6,0.1);padding:1rem 2rem 1.5rem;">
+      <a href="listings.html" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">Listings</a>
+      <a href="about.html" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">About</a>
+      <a href="testimonials.html" class="nav-link" style="padding:0.75rem 0;display:block;border-bottom:1px solid rgba(28,14,6,0.06);">Testimonials</a>
+      <a href="contact.html" class="nav-link" style="padding:0.75rem 0;display:block;color:#C8952A;opacity:1;">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE HERO
+  ═══════════════════════════════════════════ -->
+  <section style="padding:10rem 2rem 4rem;background:linear-gradient(to bottom,#F0E6CC 0%,#EDE0C4 100%);">
+    <div style="max-width:1100px;margin:0 auto;text-align:center;">
+      <p class="anim-fadeup delay-100" style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(28,14,6,0.45);font-weight:600;margin-bottom:1rem;">
+        <a href="Homepage.html" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(28,14,6,0.15);">Home</a>
+        <span style="margin:0 0.5rem;opacity:0.4;">/</span>
+        <span style="color:#C8952A;">Contact</span>
+      </p>
+      <p class="anim-fadeup delay-200" style="font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Get in Touch</p>
+      <h1 class="anim-fadeup delay-300" style="font-family:'Roboto Mono',monospace;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;letter-spacing:-0.03em;color:#1C0E06;line-height:1.08;margin-bottom:1.5rem;">Let's Find Your<br/>Perfect Property</h1>
+      <p class="anim-fadeup delay-400" style="font-family:'Montserrat',sans-serif;font-size:1.05rem;font-weight:300;line-height:1.75;color:rgba(28,14,6,0.6);max-width:620px;margin:0 auto;">Tell us where you're heading and what matters most. A specialist for your island will respond within one business day.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT INFO + FORM
+  ═══════════════════════════════════════════ -->
+  <section style="padding:4rem 2rem 6rem;background:#F0E6CC;">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;" class="md:grid-cols-2">
+
+      <!-- Left: info -->
+      <div class="reveal">
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:0.75rem;">Reach Us Directly</p>
+        <h2 style="font-family:'Roboto Mono',monospace;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-0.03em;color:#1C0E06;line-height:1.1;margin-bottom:1.25rem;">Prefer a Conversation?</h2>
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:300;line-height:1.75;color:rgba(28,14,6,0.6);margin-bottom:2.5rem;">Our team is ready to assist you. Reach out by phone, email, or drop by the Bridgetown office.</p>
+
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div class="value-icon" style="width:40px;height:40px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.64 4.5 2 2 0 0 1 3.6 2.32h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.1rem;">Phone</p>
+              <p style="font-family:'Montserrat',sans-serif;font-size:0.9rem;color:#1C0E06;">+1 (246) 555-0190</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div class="value-icon" style="width:40px;height:40px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.1rem;">Email</p>
+              <p style="font-family:'Montserrat',sans-serif;font-size:0.9rem;color:#1C0E06;">hello@caribbeanhomes.com</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div class="value-icon" style="width:40px;height:40px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.1rem;">Office</p>
+              <p style="font-family:'Montserrat',sans-serif;font-size:0.9rem;color:#1C0E06;">Bridgetown, Barbados</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="reveal">
+        <form style="display:flex;flex-direction:column;gap:1.25rem;" onsubmit="return false;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div>
+              <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">First Name</label>
+              <input type="text" placeholder="James" style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'" />
+            </div>
+            <div>
+              <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Last Name</label>
+              <input type="text" placeholder="Chen" style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'" />
+            </div>
+          </div>
+          <div>
+            <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Email</label>
+            <input type="email" placeholder="james@example.com" style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'" />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div>
+              <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Island of Interest</label>
+              <select style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;appearance:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'">
+                <option value="">Select an island…</option>
+                <option>Barbados</option>
+                <option>St. Lucia</option>
+                <option>Jamaica</option>
+                <option>Trinidad &amp; Tobago</option>
+                <option>Cayman Islands</option>
+                <option>The Bahamas</option>
+                <option>Antigua</option>
+                <option>Grenada</option>
+                <option>Turks &amp; Caicos</option>
+                <option>Other / Open</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Reason for Inquiry</label>
+              <select style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;appearance:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'">
+                <option value="">Select a reason…</option>
+                <option>Buying</option>
+                <option>Selling</option>
+                <option>Investment</option>
+                <option>Relocation</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Budget Range <span style="color:rgba(28,14,6,0.3);text-transform:none;letter-spacing:0;font-weight:400;">(optional)</span></label>
+            <select style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;appearance:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'">
+              <option value="">Prefer not to say</option>
+              <option>Under $500K</option>
+              <option>$500K – $1M</option>
+              <option>$1M – $3M</option>
+              <option>$3M+</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-family:'Roboto Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(28,14,6,0.5);display:block;margin-bottom:0.5rem;">Message</label>
+            <textarea rows="5" placeholder="Tell us about your ideal property…" style="width:100%;background:#FFFFFF;border:1px solid rgba(28,14,6,0.12);border-radius:2px;padding:0.75rem 1rem;color:#1C0E06;font-family:'Montserrat',sans-serif;font-size:0.875rem;outline:none;resize:vertical;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='rgba(200,149,42,0.5)'" onblur="this.style.borderColor='rgba(28,14,6,0.12)'"></textarea>
+          </div>
+          <button type="submit" class="btn-gold" style="align-self:flex-start;">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       OFFICE & HOURS
+  ═══════════════════════════════════════════ -->
+  <section style="padding:5rem 2rem;background:#EDE0C4;border-top:1px solid rgba(28,14,6,0.06);border-bottom:1px solid rgba(28,14,6,0.06);">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:stretch;" class="md:grid-cols-2">
+
+      <div class="reveal" style="background:#FFFFFF;padding:2.5rem;border-radius:2px;border-bottom:3px solid #C8952A;">
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:0.75rem;">Visit Us</p>
+        <h3 style="font-family:'Roboto Mono',monospace;font-size:1.3rem;font-weight:700;color:#1C0E06;margin-bottom:1.5rem;letter-spacing:-0.02em;">Bridgetown Office</h3>
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:400;line-height:1.75;color:rgba(28,14,6,0.72);margin-bottom:2rem;">
+          14 Hastings Main Road<br/>
+          Christ Church, BB15154<br/>
+          Barbados
+        </p>
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,14,6,0.4);margin-bottom:0.75rem;">Office Hours</p>
+        <div style="font-family:'Montserrat',sans-serif;font-size:0.88rem;line-height:1.9;color:rgba(28,14,6,0.72);">
+          <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(28,14,6,0.06);padding:0.35rem 0;"><span>Monday – Friday</span><span style="color:#1C0E06;font-weight:500;">9:00 – 18:00 AST</span></div>
+          <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(28,14,6,0.06);padding:0.35rem 0;"><span>Saturday</span><span style="color:#1C0E06;font-weight:500;">10:00 – 14:00 AST</span></div>
+          <div style="display:flex;justify-content:space-between;padding:0.35rem 0;"><span>Sunday</span><span style="color:rgba(28,14,6,0.4);">Closed</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="background:linear-gradient(135deg,#C4874A 0%,#7B4A28 50%,#2D1A08 100%);border-radius:2px;position:relative;overflow:hidden;min-height:320px;display:flex;align-items:center;justify-content:center;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 30% 40%,rgba(200,149,42,0.3) 0%,transparent 40%),radial-gradient(circle at 70% 60%,rgba(240,230,204,0.12) 0%,transparent 45%);pointer-events:none;"></div>
+        <div style="position:absolute;top:20%;left:15%;width:3px;height:3px;background:rgba(240,230,204,0.3);border-radius:50%;"></div>
+        <div style="position:absolute;top:60%;left:75%;width:3px;height:3px;background:rgba(240,230,204,0.3);border-radius:50%;"></div>
+        <div style="position:absolute;top:35%;left:55%;width:2px;height:2px;background:rgba(240,230,204,0.25);border-radius:50%;"></div>
+        <div style="text-align:center;position:relative;z-index:1;">
+          <div style="width:56px;height:56px;border-radius:50%;background:#C8952A;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 30px rgba(200,149,42,0.4);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1C0E06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,230,204,0.85);font-weight:600;margin-bottom:0.5rem;">Bridgetown, Barbados</p>
+          <p style="font-family:'Montserrat',sans-serif;font-size:0.82rem;color:rgba(240,230,204,0.55);">13.1° N, 59.6° W</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════ -->
+  <section style="padding:6rem 2rem;background:#F0E6CC;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="reveal" style="text-align:center;margin-bottom:3.5rem;">
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:0.75rem;">Common Questions</p>
+        <h2 style="font-family:'Roboto Mono',monospace;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-0.03em;color:#1C0E06;line-height:1.1;">Frequently Asked</h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+
+        <details class="faq-item reveal">
+          <summary>What are the typical closing costs for a Caribbean purchase?</summary>
+          <p>Closing costs vary by island but generally run 7–11% of purchase price. This typically includes stamp duty (usually the largest line item, 1–10% depending on jurisdiction), attorney fees (1–2%), property transfer tax, and registration fees. Your Caribbean Homes agent will prepare a full cost worksheet specific to your target island before you make an offer, so there are no surprises at closing.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>Can I buy remotely if I can't visit in person?</summary>
+          <p>Yes — more than a third of our closings in the past two years were conducted entirely remotely. We offer detailed video walkthroughs, drone footage, independent inspection reports, and live video showings. A local attorney can execute documents on your behalf with a Power of Attorney. Many clients only visit once, after closing, to receive keys.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>What financing options exist for non-resident buyers?</summary>
+          <p>Several regional banks lend to non-residents, typically at 60–70% loan-to-value with rates slightly above local resident mortgages. Alternatives include international private banks, portfolio-backed lending from wealth managers, and in some cases seller financing. Our investment team will introduce you to lenders matched to your situation and preferred island.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>Do you offer property management after I buy?</summary>
+          <p>Yes. We partner with vetted local property management firms on every island we serve. Services range from caretaking (weekly inspections, maintenance coordination, utilities) to full rental management (short-term or long-term letting with 20–30% ROI on well-positioned properties). Management contracts are entirely separate from your purchase; you are under no obligation to engage them.</p>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>Can buying property lead to Caribbean residency or citizenship?</summary>
+          <p>Five Caribbean nations offer formal Citizenship-by-Investment programmes with real-estate qualifying paths — minimum thresholds range from $200,000 to $400,000 depending on the country. Several others offer residency via property purchase. These programmes change regularly and have strict due-diligence requirements. Priya Ramkissoon, our head of investment, specialises in structuring these purchases correctly from day one.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer style="background:#120A03;border-top:1px solid rgba(240,230,204,0.06);padding:3.5rem 2rem 2rem;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;flex-wrap:wrap;">
+
+        <!-- Brand col -->
+        <div>
+          <img src="brand_assets/Caribbean Homes LOGO.svg" alt="Caribbean Homes" style="height:179px;width:auto;margin-bottom:1.25rem;" />
+          <p style="font-family:'Montserrat',sans-serif;font-size:0.825rem;font-weight:300;line-height:1.75;color:rgba(240,230,204,0.45);max-width:260px;">Premier real estate services across the Caribbean — connecting discerning buyers with extraordinary island properties since 2008.</p>
+          <!-- Socials -->
+          <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
+            <a href="#" aria-label="Instagram" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s ease,background 0.2s ease;" onmouseover="this.style.borderColor='#C8952A';this.style.background='rgba(200,149,42,0.08)'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)';this.style.background='transparent'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s ease,background 0.2s ease;" onmouseover="this.style.borderColor='#C8952A';this.style.background='rgba(200,149,42,0.08)'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)';this.style.background='transparent'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(240,230,204,0.12);border-radius:2px;display:flex;align-items:center;justify-content:center;transition:border-color 0.2s ease,background 0.2s ease;" onmouseover="this.style.borderColor='#C8952A';this.style.background='rgba(200,149,42,0.08)'" onmouseout="this.style.borderColor='rgba(240,230,204,0.12)';this.style.background='transparent'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8952A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation col -->
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Navigation</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="listings.html" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Listings</a>
+            <a href="about.html" class="nav-link" style="font-size:0.82rem;opacity:0.55;">About Us</a>
+            <a href="testimonials.html" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Testimonials</a>
+            <a href="contact.html" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Contact</a>
+          </div>
+        </div>
+
+        <!-- Locations col -->
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Locations</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Barbados</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">St. Lucia</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Jamaica</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Cayman Islands</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Trinidad & Tobago</a>
+          </div>
+        </div>
+
+        <!-- Legal col -->
+        <div>
+          <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#C8952A;font-weight:600;margin-bottom:1.25rem;">Legal</p>
+          <div style="display:flex;flex-direction:column;gap:0.65rem;">
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Privacy Policy</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Terms of Service</a>
+            <a href="#" class="nav-link" style="font-size:0.82rem;opacity:0.55;">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div style="padding-top:1.5rem;border-top:1px solid rgba(240,230,204,0.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <p style="font-family:'Montserrat',sans-serif;font-size:0.75rem;color:rgba(240,230,204,0.3);">© 2026 Caribbean Homes. All rights reserved.</p>
+        <p style="font-family:'Roboto Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;color:rgba(240,230,204,0.2);">Bridgetown, Barbados · Est. 2008</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+    // ── Scroll-aware navbar ──
+    const navbar = document.getElementById('navbar');
+    const navbarInner = document.getElementById('navbar-inner');
+    const navLogo = document.getElementById('nav-logo');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.style.background = 'rgba(240,230,204,0.96)';
+        navbar.style.backdropFilter = 'blur(14px)';
+        navbar.style.webkitBackdropFilter = 'blur(14px)';
+        navbar.style.boxShadow = '0 1px 0 rgba(28,14,6,0.08)';
+        navbarInner.style.height = '68px';
+        navLogo.style.height = '120px';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.webkitBackdropFilter = 'none';
+        navbar.style.boxShadow = 'none';
+        navbarInner.style.height = '90px';
+        navLogo.style.height = '179px';
+      }
+    }, { passive: true });
+
+    // ── Mobile hamburger ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenu.classList.add('open');
+        document.getElementById('hb1').style.transform = 'translateY(7px) rotate(45deg)';
+        document.getElementById('hb2').style.opacity = '0';
+        document.getElementById('hb3').style.transform = 'translateY(-7px) rotate(-45deg)';
+      } else {
+        mobileMenu.classList.remove('open');
+        document.getElementById('hb1').style.transform = '';
+        document.getElementById('hb2').style.opacity = '';
+        document.getElementById('hb3').style.transform = '';
+      }
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.remove('open');
+      document.getElementById('hb1').style.transform = '';
+      document.getElementById('hb2').style.opacity = '';
+      document.getElementById('hb3').style.transform = '';
+    }));
+
+    // ── Responsive: show/hide hamburger ──
+    function checkNav() {
+      const isMobile = window.innerWidth < 768;
+      hamburger.style.display = isMobile ? 'flex' : 'none';
+      const desktopNav = navbar.querySelector('div > div:nth-child(2)');
+      if (desktopNav) desktopNav.style.display = isMobile ? 'none' : 'flex';
+    }
+    checkNav();
+    window.addEventListener('resize', checkNav);
+
+    // ── Scroll-reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
